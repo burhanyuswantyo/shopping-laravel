@@ -16,13 +16,19 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
+        // Generate image
+        $image = fake()->image('public/storage/products', 640, 480, null, false);
+        // Generate fake name
+        $name = fake()->colorName() . ' ' . fake()->randomElement(['T-Shirt', 'Shirt', 'Pants', 'Shoes', 'Hat']);
+
         return [
-            'name' => fake()->name(),
+            'name' => $name,
+            'slug' => \Str::slug($name),
             'description' => fake()->sentence(),
             'price' => fake()->randomNumber(6),
             'quantity' => fake()->randomNumber(2),
             'category_id' => fake()->randomElement([1, 2, 3]),
-            'image' => fake()->imageUrl(),
+            'image' => 'products/' . $image,
         ];
     }
 }
